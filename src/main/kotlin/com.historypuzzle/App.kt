@@ -14,6 +14,10 @@ private fun createServer() = serverOf {
     }
 
     handlers {
+        files { f ->
+//            f.dir("static").indexFiles("index.html")
+            f.indexFiles("index.html")
+        }
         path("foo") { render("from the foo handler") }
         path("bar") { render("from the bar handler") }
 
@@ -22,11 +26,11 @@ private fun createServer() = serverOf {
 
         // Set up a nested routing block, which is delegated to `nestedHandler`
         prefix("nested") {
-            path(":var1/:var2?") {
+            it.path(":var1/:var2?") { ctx ->
                 // The path tokens are the :var1 and :var2 path components above
-                val var1 = pathTokens["var1"]
-                val var2 = pathTokens["var2"]
-                render("from the nested handler, var1: $var1, var2: $var2")
+                val var1 = ctx.pathTokens["var1"]
+                val var2 = ctx.pathTokens["var2"]
+                ctx.render("from the nested handler, var1: $var1, var2: $var2")
             }
         }
 
@@ -34,9 +38,9 @@ private fun createServer() = serverOf {
         //path("injected", MyHandler::class.java)
 
         // Bind the /static app path to the src/ratpack/assets/images dir
-        prefix("static") {
-            fileSystem("assets/images") { files() }
-        }
+//        prefix("static") {
+//            fileSystem("assets/images") { files() }
+//        }
 
         all { render("root handler!") }
     }

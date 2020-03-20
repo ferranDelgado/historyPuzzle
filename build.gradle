@@ -32,3 +32,9 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         jvmTarget = "1.8"
     }
 }
+
+
+task copyVueApp(type: Copy) {
+    from "$buildDir/app/dist"
+    into "$buildDir/src/ratpack"
+}
