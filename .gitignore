@@ -1,2 +1,7 @@
 .gradle
 build/
+ratpack/css
+ratpack/img
+ratpack/js
+ratpack/index.html
+ratpack/favicon.ico
