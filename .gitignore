@@ -1,7 +1,11 @@
 .gradle
 build/
+out/
 ratpack/css
 ratpack/img
 ratpack/js
 ratpack/index.html
 ratpack/favicon.ico
+**/*.iml
+.idea/modules.xml
+.idea/libraries/*.xml
