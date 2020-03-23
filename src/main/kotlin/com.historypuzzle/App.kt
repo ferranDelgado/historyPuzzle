@@ -5,6 +5,7 @@ import com.historypuzzle.handler.CreateCardHandler
 import com.historypuzzle.handler.GetAllCardsHandler
 import com.historypuzzle.infrastructure.CardRepository
 import ratpack.handling.Context
+import ratpack.handling.RequestLogger
 import ratpack.server.BaseDir
 
 
@@ -30,6 +31,7 @@ fun createServer() = serverOf {
             f.indexFiles("index.html")
         }
 
+        all(RequestLogger.ncsa())
         path("card") { ctx ->
             ctx.byMethod {
                 it.get(getAllCardsHandler)
