@@ -19,9 +19,19 @@ apply plugin: "io.ratpack.ratpack-java"
 
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-stdlib'
+    implementation 'ch.qos.logback:logback-core:1.3.0-alpha5'
+    implementation 'ch.qos.logback:logback-classic:1.3.0-alpha5'
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.10.3'
+
+    //Test
+    testImplementation "org.spekframework.spek2:spek-dsl-jvm:2.0.9"
+    testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:2.0.9"
+    testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect"
+    testImplementation 'org.amshove.kluent:kluent:1.60'
 }
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 

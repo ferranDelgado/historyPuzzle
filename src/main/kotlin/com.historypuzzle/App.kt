@@ -1,5 +1,9 @@
 package com.historypuzzle
 
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.historypuzzle.handler.CreateCardHandler
+import com.historypuzzle.handler.GetAllCardsHandler
+import com.historypuzzle.infrastructure.CardRepository
 import ratpack.handling.Context
 import ratpack.server.BaseDir
 
@@ -8,16 +12,33 @@ fun main() {
     createServer().start()
 }
 
-private fun createServer() = serverOf {
+fun createServer() = serverOf {
     serverConfig {
         baseDir(BaseDir.find())
     }
 
+    jacksonConfig {
+        registerModule(KotlinModule())
+    }
+
+    val cardRepository = CardRepository()
+    val createCardHandler = CreateCardHandler(cardRepository.saver)
+    val getAllCardsHandler = GetAllCardsHandler(cardRepository.getAll)
+
     handlers {
         files { f ->
-//            f.dir("static").indexFiles("index.html")
             f.indexFiles("index.html")
         }
+
+        path("card") { ctx ->
+            ctx.byMethod {
+                it.get(getAllCardsHandler)
+                .post(createCardHandler)
+            }
+
+        }
+
+        get("hola") { render("hola") }
         path("foo") { render("from the foo handler") }
         path("bar") { render("from the bar handler") }
 
@@ -42,7 +63,7 @@ private fun createServer() = serverOf {
 //            fileSystem("assets/images") { files() }
 //        }
 
-        all { render("root handler!") }
+//        all { render("root handler!") }
     }
 }
 

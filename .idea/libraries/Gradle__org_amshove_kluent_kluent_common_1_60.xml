@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.amshove.kluent:kluent-common:1.60" type="kotlin.common">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.amshove.kluent/kluent-common/1.60/ba66db3c4044e122c31a1dd09d94f6c83ceb9bbe/kluent-common-1.60.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.amshove.kluent/kluent-common/1.60/da287b659a7953605a3ff92eb60f4f44f810a458/kluent-common-1.60-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
