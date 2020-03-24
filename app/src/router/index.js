@@ -12,12 +12,12 @@ export default new Router({
         },
         {
             path: '/create/',
-            name: 'Search-Clients',
+            name: 'Create card',
             component: require('@/components/CreateCard/CreateCardPage').default
         },
         {
             path: '/update/:cardId',
-            name: 'Search-Clients',
+            name: 'Update card',
             component: require('@/components/CreateCard/CreateCardPage').default
         },
         // {

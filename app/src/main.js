@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import {library} from '@fortawesome/fontawesome-svg-core'
@@ -29,7 +30,15 @@ Vue.use(Buefy, {
     defaultIconPack: 'fas',
 });
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.use(VueAxios, axios);
+
+Vue.axios.defaults.baseURL = "http://localhost:5050/";
+
 new Vue({
     router,
+    store,
     render: h => h(App)
 }).$mount('#app');

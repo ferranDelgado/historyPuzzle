@@ -6,6 +6,7 @@ import com.historypuzzle.handler.GetAllCardsHandler
 import com.historypuzzle.infrastructure.CardRepository
 import ratpack.handling.Context
 import ratpack.handling.RequestLogger
+import ratpack.http.MutableHeaders
 import ratpack.server.BaseDir
 
 
@@ -29,6 +30,13 @@ fun createServer() = serverOf {
     handlers {
         files { f ->
             f.indexFiles("index.html")
+        }
+
+        all {
+            val headers: MutableHeaders = response.headers
+            headers.set("Access-Control-Allow-Origin", "*")
+            headers.set("Access-Control-Allow-Headers", "x-requested-with, origin, content-type, accept")
+            next()
         }
 
         all(RequestLogger.ncsa())

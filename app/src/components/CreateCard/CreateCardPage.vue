@@ -105,9 +105,19 @@
                 }
             }
         },
+        computed: {
+            hello() {
+                console.log(`Hello ${this.$store.state.cards.hello}`);
+                return this.$store.state.cards.hello
+            }
+        },
         watch: {
             // call again the method if the route changes
             '$route': 'fetchData'
+        },
+        created() {
+            console.log("Created");
+            this.$store.dispatch('loadUsers');
         },
         methods: {
             fetchData() {
