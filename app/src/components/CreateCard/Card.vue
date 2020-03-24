@@ -14,7 +14,7 @@
                 </div>
                 <div class="media-content">
                     <p class="title is-4">{{ title }}</p>
-                    <p class="subtitle is-10">@johnsmith</p>
+                    <p class="subtitle is-10">{{day}} {{ computedMonth }} {{ year }}</p>
                 </div>
             </div>
 
@@ -23,7 +23,6 @@
                 <p>
                     <a v-if="wikipedia.length > 0" href="#">Wikipedia</a>
                 </p>
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
             </div>
         </div>
     </div>
@@ -35,9 +34,20 @@
         props: {
             title: String,
             wikipedia: String,
-            info: String
+            info: String,
+            year: Number,
+            month: Number,
+            day: Number
         },
         components: {
+        },
+        computed: {
+            computedMonth() {
+                const monthNames = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+                return monthNames[this.month - 1]
+            }
         },
         data() {
             return {

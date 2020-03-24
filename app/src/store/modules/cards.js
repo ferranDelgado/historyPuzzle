@@ -44,7 +44,6 @@ const mutations = {
         };
 
         state.blocks = cards.reduce(reducer, {});
-        state.cards = cards;
     }
 };
 
@@ -52,6 +51,14 @@ const actions = {
     loadUsers({commit}) {
         Vue.axios.get('card').then(result => {
             commit('SAVE_CARDS', result.data);
+        }).catch(error => {
+            throw new Error(`API ${error}`);
+        });
+    },
+    createCard({commit}, object) {
+        console.log(object);
+        Vue.axios.post('card', object).then(result => {
+            commit('ADD_CARDS', result.data);
         }).catch(error => {
             throw new Error(`API ${error}`);
         });

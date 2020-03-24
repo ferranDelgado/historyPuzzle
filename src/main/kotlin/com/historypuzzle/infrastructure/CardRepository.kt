@@ -33,11 +33,11 @@ class CardRepository {
         val copy = Card(
             id = newId,
             title = title,
-            year = 1945,
-            month = 9,
-            day = 1,
-            picture = "",
-            wikipedia = "https://en.wikipedia.org/wiki/World_War_II"
+            year = year,
+            month = month,
+            day = day,
+            picture = picture,
+            wikipedia = wikipedia
         )
         db[newId] = copy
         copy

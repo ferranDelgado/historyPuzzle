@@ -7,7 +7,14 @@ import ratpack.handling.Handler
 import ratpack.jackson.Jackson.fromJson
 import ratpack.jackson.Jackson.json
 
-data class CreateCardRequest(val title: String)
+data class CreateCardRequest(
+    val title: String,
+    val year: Int,
+    val month: Int,
+    val day: Int,
+    val picture: String,
+    val wikipedia: String
+)
 
 class CreateCardHandler(private val saver: CreateCardRequest.() -> Card): Handler {
 
