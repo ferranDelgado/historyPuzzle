@@ -12,7 +12,8 @@ data class CreateCardRequest(
     val year: Int,
     val month: Int,
     val day: Int,
-    val picture: String,
+    val info: String,
+    val picture: String = "https://bulma.io/images/placeholders/1280x960.png",
     val wikipedia: String
 )
 

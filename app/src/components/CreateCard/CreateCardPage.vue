@@ -7,10 +7,10 @@
             <div class="column">
                 <div id="cart-creator-form">
                     <div class="field">
-                        <label class="label" for="create-update-card-title-input">Title</label>
+                        <label class="label" for="create-update-card-title-input">Title (50 Characters Max)</label>
                         <div class="control">
                             <input id="create-update-card-title-input" class="input" type="text"
-                                   v-model="selectedCard.title" placeholder="Text input">
+                                   v-model="selectedCard.title" placeholder="Text input" maxlength="50">
                         </div>
                     </div>
 
@@ -50,7 +50,7 @@
                     </div>
 
                     <div class="field">
-                        <label class="label" for="create-update-card-info-input">Message</label>
+                        <label class="label" for="create-update-card-info-input">Information</label>
                         <div class="control">
                             <textarea id="create-update-card-info-input" class="textarea" placeholder="Textarea"
                                       v-model="selectedCard.info"></textarea>
@@ -65,7 +65,13 @@
                                    placeholder="Introduce date" v-model="dateString">
                         </div>
                     </div>
-
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <b-field label="Level">
+                                <b-slider :min="1" :max="3" ticks></b-slider>
+                            </b-field>
+                        </div>
+                    </div>
                     <div class="field is-grouped">
                         <div v-if="!id" class="control">
                             <button class="button is-link is-success" v-on:click="createCard">Create</button>

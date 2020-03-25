@@ -7,5 +7,6 @@ data class Card(
     val month: Int,
     val day: Int,
     val picture: String,
-    val wikipedia: String
+    val wikipedia: String,
+    val info: String
 )

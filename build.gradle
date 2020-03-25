@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "io.ratpack:ratpack-gradle:1.7.6"
+        classpath 'io.ratpack:ratpack-gradle:1.7.6'
     }
 }
 
@@ -27,7 +27,15 @@ dependencies {
     testImplementation "org.spekframework.spek2:spek-dsl-jvm:2.0.9"
     testRuntimeOnly "org.spekframework.spek2:spek-runner-junit5:2.0.9"
     testRuntimeOnly "org.jetbrains.kotlin:kotlin-reflect"
+
     testImplementation 'org.amshove.kluent:kluent:1.60'
+}
+
+// setup the test task
+test {
+    useJUnitPlatform {
+        includeEngines 'spek2'
+    }
 }
 
 repositories {
@@ -71,4 +79,10 @@ task copyVueApp(type: Copy) {
     into "$currentDir/src/ratpack"
 }
 
-compileKotlin.dependsOn copyVueApp
+task publish {
+    dependsOn copyVueApp
+    dependsOn build
+    tasks.findByName('build').mustRunAfter copyVueApp
+}
+
+//compileKotlin.dependsOn copyVueApp

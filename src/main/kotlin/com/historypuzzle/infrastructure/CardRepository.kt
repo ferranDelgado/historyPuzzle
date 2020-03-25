@@ -14,7 +14,8 @@ class CardRepository {
             month = 7,
             day = 28,
             picture = "",
-            wikipedia = "https://en.wikipedia.org/wiki/World_War_I"
+            wikipedia = "https://en.wikipedia.org/wiki/World_War_I",
+            info = ""
         ),
         2 to Card(
             id = 2,
@@ -23,7 +24,8 @@ class CardRepository {
             month = 9,
             day = 1,
             picture = "",
-            wikipedia = "https://en.wikipedia.org/wiki/World_War_II"
+            wikipedia = "https://en.wikipedia.org/wiki/World_War_II",
+            info = ""
         )
     )
     private val autoId = AtomicInteger(3)
@@ -37,7 +39,8 @@ class CardRepository {
             month = month,
             day = day,
             picture = picture,
-            wikipedia = wikipedia
+            wikipedia = wikipedia,
+            info = info
         )
         db[newId] = copy
         copy

@@ -9,3 +9,4 @@ ratpack/favicon.ico
 **/*.iml
 .idea/modules.xml
 .idea/libraries/*.xml
+.idea

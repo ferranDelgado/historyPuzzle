@@ -6,9 +6,13 @@ package com.historypuzzle
  */
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
+import ratpack.error.ClientErrorHandler
+import ratpack.error.ServerErrorHandler
+import ratpack.error.internal.ErrorHandler
 import ratpack.handling.Chain
 import ratpack.handling.Context
+import ratpack.registry.RegistrySpec
+import ratpack.registry.internal.DefaultRegistryBuilder
 import ratpack.server.RatpackServer
 import ratpack.server.RatpackServerSpec
 import ratpack.server.ServerConfigBuilder
@@ -38,21 +42,27 @@ class KChain(val delegate: Chain) : Chain by delegate {
 
 class KContext(val delegate: Context) : Context by delegate
 
-class KServerSpec(val delegate: RatpackServerSpec) {
-    fun registryOf() {
-        delegate.registryOf { registry ->
-            registry.add(ObjectMapper::class.java, ObjectMapper().registerModule(KotlinModule()))
+class KRegistrySpec(private val delegate: RegistrySpec) {
 
-        }
+    fun onClientError(handler: ErrorHandler) {
+        delegate.add<ClientErrorHandler>(ClientErrorHandler::class.java, handler)
     }
 
-    fun jacksonConfig(cb: ObjectMapper.() -> Unit) {
+    fun onServerError(handler: ErrorHandler) {
+        delegate.add<ServerErrorHandler>(ServerErrorHandler::class.java, handler)
+    }
+
+    fun jackson(cb: ObjectMapper.() -> Unit) {
         val objectMapper = ObjectMapper()
         objectMapper.cb()
+        delegate.add(ObjectMapper::class.java, objectMapper)
+    }
+}
 
-        delegate.registryOf { registry ->
-            registry.add(ObjectMapper::class.java, objectMapper)
-        }
+class KServerSpec(val delegate: RatpackServerSpec) {
+
+    fun registryConfig(cb: KRegistrySpec.() -> Unit) = delegate.registryOf { registry ->
+        KRegistrySpec(registry).cb()
     }
 
     fun serverConfig(cb: ServerConfigBuilder.() -> Unit) = delegate.serverConfig { it.cb() }
