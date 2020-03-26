@@ -10,8 +10,17 @@ Missing description
 - [Bulma](https://bulma.io/): Css Framework
 - [Buefy](https://buefy.org/): Bulma components
 
+### Execute
+Inside the app folder: `yarn serve`
+
+### Test
+Without test :dizzy_face:
+
 ## Backend
 [Ratpack](https://ratpack.io/) is our friend for the rest api
+
+### Execute
+To build and run backend and frontend: `gradle copyVue run`
 
 ### Test
 Let's try [Spek](https://www.spekframework.org/) + [Kluent](https://github.com/MarkusAmshove/Kluent) for testing.
