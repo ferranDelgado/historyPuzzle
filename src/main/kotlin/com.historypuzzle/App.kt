@@ -4,31 +4,15 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.historypuzzle.handler.CreateCardHandler
 import com.historypuzzle.handler.GetAllCardsHandler
 import com.historypuzzle.infrastructure.CardRepository
-import ratpack.error.ClientErrorHandler
-import ratpack.error.ServerErrorHandler
-import ratpack.error.internal.ErrorHandler
+import com.historypuzzle.infrastructure.error.GlobalErrorHandler
 import ratpack.handling.Context
 import ratpack.handling.RequestLogger
-import ratpack.http.ClientErrorException
 import ratpack.http.MutableHeaders
 import ratpack.server.BaseDir
 
 
 fun main() {
     createServer().start()
-}
-
-class GlobalErrorHandler : ErrorHandler {
-    override fun error(context: Context?, statusCode: Int) {
-        println("~~~~~~~~~~~~ Error")
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun error(context: Context?, throwable: Throwable?) {
-        println("~~~~~~~~~~~~ Error")
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
 }
 
 fun createServer() = serverOf {
@@ -89,16 +73,6 @@ fun createServer() = serverOf {
                 ctx.render("from the nested handler, var1: $var1, var2: $var2")
             }
         }
-
-        // Map to a dependency injected handler
-        //path("injected", MyHandler::class.java)
-
-        // Bind the /static app path to the src/ratpack/assets/images dir
-//        prefix("static") {
-//            fileSystem("assets/images") { files() }
-//        }
-
-//        all { render("root handler!") }
     }
 }
 

@@ -1,7 +1,6 @@
 import Vue from "vue";
 
 const state = {
-    hello: "world",
     blocks: [
         {
             year: 1910,
@@ -42,8 +41,23 @@ const mutations = {
             accumulator[currentValue.year].cards.push(currentValue);
             return accumulator
         };
-
         state.blocks = cards.reduce(reducer, {});
+    },
+    ADD_CARD(state, card) {
+        if(card.year in state.blocks) {
+            Vue.set(state.blocks[card.year].cards, state.blocks[card.year].cards.length, card);
+        } else {
+            let newObj = {
+              [card.year]: { year: card.year, cards: [card]}
+            };
+            
+            state.blocks = Object.assign({}, state.blocks, newObj);
+            // state.blocks[card.year] = {year: card.year, cards: []};
+            // Vue.set(state.blocks, card.year, {year: card.year, cards: [card]})
+        }
+        // state.blocks[card.year].cards.push(card);
+        console.log("state.blocks");
+        console.log(state.blocks)
     }
 };
 
@@ -56,9 +70,8 @@ const actions = {
         });
     },
     createCard({commit}, object) {
-        console.log(object);
         Vue.axios.post('card', object).then(result => {
-            commit('ADD_CARDS', result.data);
+            commit('ADD_CARD', result.data);
         }).catch(error => {
             throw new Error(`API ${error}`);
         });

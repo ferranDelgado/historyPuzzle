@@ -12,5 +12,5 @@
 Let's try [Spek](https://www.spekframework.org/) + [Kluent](https://github.com/MarkusAmshove/Kluent) for testing.
 
 ## Some Links
-[Ratpack Error Handler Example](https://github.com/gregwhitaker/ratpack-errorhandler-example)
-[Best practices unit testing kotlin](https://phauer.com/2018/best-practices-unit-testing-kotlin/)
+- [Ratpack Error Handler Example](https://github.com/gregwhitaker/ratpack-errorhandler-example)
+- [Best practices unit testing kotlin](https://phauer.com/2018/best-practices-unit-testing-kotlin/)
