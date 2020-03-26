@@ -1,14 +1,19 @@
-# Frontend
+# History Puzzle
+Missing description
+
+
+![](TeaTime.gif)
+## Frontend
 [Vue](https://vuejs.org/) app with:
 - [Vue Router](https://router.vuejs.org/)
 - [Vuex](https://vuex.vuejs.org/)
 - [Bulma](https://bulma.io/): Css Framework
 - [Buefy](https://buefy.org/): Bulma components
 
-# Backend
+## Backend
 [Ratpack](https://ratpack.io/) is our friend for the rest api
 
-## Test
+### Test
 Let's try [Spek](https://www.spekframework.org/) + [Kluent](https://github.com/MarkusAmshove/Kluent) for testing.
 
 ## Some Links
