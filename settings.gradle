@@ -1,1 +1,24 @@
+plugins {
+    id "com.gradle.enterprise" version "3.2"
+}
+
 rootProject.name = "history_puzzle"
+
+
+//plugins {
+//    id "com.gradle.enterprise" version "3.2"
+//}
+
+//apply plugin: "com.gradle.enterprise:3.2"
+
+gradleEnterprise {
+    buildScan {
+        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+        termsOfServiceAgree = 'yes'
+    }
+}
+
+//buildScan {
+//    termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+//    termsOfServiceAgree = 'yes'
+//}
