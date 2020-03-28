@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/ferranDelgado/historyPuzzle.svg?branch=master)](https://travis-ci.com/ferranDelgado/historyPuzzle)
 # History Puzzle
 Missing description
 

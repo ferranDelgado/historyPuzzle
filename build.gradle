@@ -84,5 +84,3 @@ task publish {
     dependsOn build
     tasks.findByName('build').mustRunAfter copyVueApp
 }
-
-//compileKotlin.dependsOn copyVueApp
