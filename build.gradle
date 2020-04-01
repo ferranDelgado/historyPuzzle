@@ -79,8 +79,8 @@ task copyVueApp(type: Copy) {
     into "$currentDir/src/ratpack"
 }
 
-task publish {
+task stage {
     dependsOn copyVueApp
-    dependsOn build
-    tasks.findByName('build').mustRunAfter copyVueApp
+    dependsOn installDist
+    tasks.findByName('installDist').mustRunAfter copyVueApp
 }
