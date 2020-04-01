@@ -1,26 +1,21 @@
 language: java
 install: true
-
 os: linux
 dist: trusty
 jdk: oraclejdk8
-
 script:
-  - ./gradlew build --scan -s
-
+- "./gradlew build --scan -s"
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 deploy:
   provider: heroku
   api_key:
-    secure: oZdJcINRW0ERJBysMGxSYLdJUZpHkBmMdual1+dn2GrLc2xPWo02Hdgt7poXkxmrsSgxdD3hZE/md9/LK3aayxemozXSN06Hyos/bmpL24RkZfELuV1gLSQRhmUYfnfh0bdvRXugFiFaKQdUSE76ARLnq41hgR1NBPFAng8R0wEwQSgend82zL/Dpw6rhjS4fhGt7+GhFTb3K/uKpfL7bTT1x0M0s/ZkdOFZD5I5stwmT8kIRe9JiypZXjc8mGBIOw6GihR0HlL3EgqXvJlZ98EY+NzfSleXGDZZW7WAPARkQ/+SFe3s218TcVk9c/NUvwMN+PZqFeOSTFmHrwpxPTfN4TEqFxTqoy/JlFGzNXc5ICPuFFLUipugIUbx/x6npLM15v+edhA9fW3Fvn/ENbzcJ2sVlt9UQMLIQb3y9bDuoAuf2nduwAVFZKxAkZTvTMZcLnDgJa8YJmUXXccase0tnDbGGpmFtVDFpXwmbd+Et49Lcz4lnRDXFHmhaUVCGuMH7vRpT0AMzpIq72TOQtPrJ7tB+QCavZdr5fISUyNyfoctvLv/V4NOc2L8JrXVRDQ3v9ivlwFuY47wUvd9fcaizyBCLWh+sCQUBEFmN5gVkxrvZ/QNgpecTbsEfKLPOu1m3J0+ceesUKwdYZwbSuHTNBRYUchlBlhKNGWykKA=
+    secure: TVfOzeoesbbezLEIElUUT514cIOkk7YqHOhQdEejP49ToQJJYeMcqnaiSFnhkj2CVK9Ru5ok0fEJPvz0RsRETI39nXvl6YlIrkcJiTaS0DM8PzG3DNxDMhTbyO5BHIYhs4Q4RpS8emjHDgj/mbHpGwrya33IZ/wlW+L55riXp2kiGCSF9Oui5Z6oI615eVORRo4Shm0/ePasAFfppVnXY9koRV6X5+UTcz7pwYg2NhIpBzgtCue+yh87TJjTQcf+PM9ON5W8W+HiOLOvjWbBpEy3WTSlkTtv9WMK+KgagA/mHN7jGOnEOYdLvUFloSvmIkkTWssQn7ojZ/WHuxnE/yfB/flnaVOlDBHNb77LzS59gYB0n1q7dYLLdFWX7NhgH5Umvzx/367iPDfJSA4DaDroYXc8v4uy67S9I5aqjcYH4F576beotaO6dIwAV9KF5+QRIsmPKUVnuIQ3i5eu4PrOWU2jBtYBFmtdd18H0xfKj+9wdzEK6/WO/KP4K0H+0et5Xuv4loeZslwHIAfKITIUe9J7274nINffJjZg0y8l9XIAb8w50lVADMDqa5qa+P8ADnPizYJqsXpn23XSRq02cZYTs9WfLQfHWwvXMUo0T6UOacOHm/MxjlvwAYCrfLAeds2y50fQGWwXNFQcXNv0ou85XpWDLtmmcuFGdJs=
   app: history-puzzle
   on:
     repo: ferranDelgado/historyPuzzle
