@@ -67,6 +67,9 @@ node {
 
     // Set the work directory for unpacking node
     workDir = file("${project.buildDir}/nodejs")
+    
+    // Set the work directory for Yarn
+    yarnWorkDir = file("${project.projectDir}/app")
 
     // Set the work directory where node_modules should be located
     nodeModulesDir = file("${project.projectDir}/app")
