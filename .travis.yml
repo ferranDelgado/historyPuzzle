@@ -16,3 +16,11 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: oZdJcINRW0ERJBysMGxSYLdJUZpHkBmMdual1+dn2GrLc2xPWo02Hdgt7poXkxmrsSgxdD3hZE/md9/LK3aayxemozXSN06Hyos/bmpL24RkZfELuV1gLSQRhmUYfnfh0bdvRXugFiFaKQdUSE76ARLnq41hgR1NBPFAng8R0wEwQSgend82zL/Dpw6rhjS4fhGt7+GhFTb3K/uKpfL7bTT1x0M0s/ZkdOFZD5I5stwmT8kIRe9JiypZXjc8mGBIOw6GihR0HlL3EgqXvJlZ98EY+NzfSleXGDZZW7WAPARkQ/+SFe3s218TcVk9c/NUvwMN+PZqFeOSTFmHrwpxPTfN4TEqFxTqoy/JlFGzNXc5ICPuFFLUipugIUbx/x6npLM15v+edhA9fW3Fvn/ENbzcJ2sVlt9UQMLIQb3y9bDuoAuf2nduwAVFZKxAkZTvTMZcLnDgJa8YJmUXXccase0tnDbGGpmFtVDFpXwmbd+Et49Lcz4lnRDXFHmhaUVCGuMH7vRpT0AMzpIq72TOQtPrJ7tB+QCavZdr5fISUyNyfoctvLv/V4NOc2L8JrXVRDQ3v9ivlwFuY47wUvd9fcaizyBCLWh+sCQUBEFmN5gVkxrvZ/QNgpecTbsEfKLPOu1m3J0+ceesUKwdYZwbSuHTNBRYUchlBlhKNGWykKA=
+  app: history-puzzle
+  on:
+    repo: ferranDelgado/historyPuzzle
