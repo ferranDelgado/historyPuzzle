@@ -76,10 +76,12 @@ node {
 }
 
 task copyVueApp(type: Copy) {
+    dependsOn yarn_install
     dependsOn yarn_build
     def currentDir = new File("").absolutePath
     from "$currentDir/app/dist"
     into "$currentDir/src/ratpack"
+    tasks.findByName('yarn_build').mustRunAfter yarn_install
 }
 
 task stage {
