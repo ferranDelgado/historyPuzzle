@@ -1,0 +1,12 @@
+text=auto
+text eol=crlf
+
+*.kt text
+*.groovy text
+*.md text
+*.java text
+*.js text
+*.vue text
+
+*.png binary
+*.jpg binary
