@@ -13,9 +13,9 @@
         </b-menu-list>
 
         <b-menu-list label="Cards">
-            <b-menu-item v-for="block in blocks" :key="block.year">
+            <b-menu-item v-for="block in blocks" :key="block.century">
                 <template v-slot:label="props">
-                    {{ block.year }}
+                    {{ block.century }}
                     <font-awesome-icon :icon="props.expanded ? 'caret-up' : 'caret-down' "></font-awesome-icon>
                 </template>
                 <b-menu-item

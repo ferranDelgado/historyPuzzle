@@ -3,7 +3,7 @@ import Vue from "vue";
 const state = {
     blocks: [
         {
-            year: 1910,
+          century: 1900,
             cards: [
                 {
                     id: 2,
@@ -17,7 +17,7 @@ const state = {
             ]
         },
         {
-            year: 1940,
+          century: 1900,
             cards: [
                 {
                     id: 5,
@@ -36,26 +36,26 @@ const state = {
 const mutations = {
     SAVE_CARDS(state, cards) {
         const reducer = (accumulator, currentValue) => {
-            if(!(currentValue.year in accumulator))
-                accumulator[currentValue.year] = {year: currentValue.year, cards: []};
-            accumulator[currentValue.year].cards.push(currentValue);
+            let century = (currentValue.year/100|0)*100;
+            console.log(`year: ${currentValue.year} century: ${century}`);
+            if(!(century in accumulator))
+                accumulator[century] = { century: century, cards: []};
+            accumulator[century].cards.push(currentValue);
             return accumulator
         };
         state.blocks = cards.reduce(reducer, {});
     },
     ADD_CARD(state, card) {
+        let century = (card.year/100|0)*100
         if(card.year in state.blocks) {
-            Vue.set(state.blocks[card.year].cards, state.blocks[card.year].cards.length, card);
+            Vue.set(state.blocks[century].cards, state.blocks[century].cards.length, card);
         } else {
             let newObj = {
-              [card.year]: { year: card.year, cards: [card]}
+              [century]: { century: century, cards: [card]}
             };
             
             state.blocks = Object.assign({}, state.blocks, newObj);
-            // state.blocks[card.year] = {year: card.year, cards: []};
-            // Vue.set(state.blocks, card.year, {year: card.year, cards: [card]})
         }
-        // state.blocks[card.year].cards.push(card);
         console.log("state.blocks");
         console.log(state.blocks)
     }
