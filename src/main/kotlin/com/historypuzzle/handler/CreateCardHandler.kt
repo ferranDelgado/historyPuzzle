@@ -15,7 +15,8 @@ data class CreateCardRequest(
         val day: Int?,
         val info: String,
         val picture: String = "https://bulma.io/images/placeholders/1280x960.png",
-        val wikipedia: String
+        val wikipedia: String,
+        val difficulty: Int = 0
 )
 
 class CreateCardHandler(private val saver: CreateCardRequest.() -> Card) : Handler {

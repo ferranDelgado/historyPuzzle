@@ -2,51 +2,61 @@ package com.historypuzzle.infrastructure
 
 import com.historypuzzle.domain.Card
 import com.historypuzzle.handler.CreateCardRequest
-import java.util.concurrent.atomic.AtomicInteger
+import org.jdbi.v3.core.Jdbi
 
-class CardRepository {
-    companion object {
-        //Fake Db: It will be moved to mysql
-        private val db: MutableMap<Int, Card> = mutableMapOf(
-                1 to Card(
-                        id = 1,
-                        title = "World War I",
-                        year = 1914,
-                        month = 7,
-                        day = 28,
-                        picture = "",
-                        wikipedia = "https://en.wikipedia.org/wiki/World_War_I",
-                        info = ""
-                ),
-                2 to Card(
-                        id = 2,
-                        title = "World War II",
-                        year = 1945,
-                        month = 9,
-                        day = 1,
-                        picture = "",
-                        wikipedia = "https://en.wikipedia.org/wiki/World_War_II",
-                        info = ""
-                )
-        )
-        private val autoId = AtomicInteger(3)
-    }
-
+class CardRepository(private val jdbi: Jdbi) {
     val saver: CreateCardRequest.() -> Card = {
-        val newId = autoId.incrementAndGet()
-        val copy = Card(
-            id = newId,
-            title = title,
-            year = year,
-            month = month,
-            day = day,
-            picture = picture,
-            wikipedia = wikipedia,
-            info = info
-        )
-        db[newId] = copy
-        copy
+        jdbi.withHandle<Card, Exception> { handle ->
+            val query = """
+                INSERT INTO card
+                (title, "year", "month", "day", difficulty, info, wikipedia_link, image_link)
+                VALUES(:title, :year, :month, :day, :difficulty, :info, :wikipediaLink, :imageLink);
+            """.trimIndent()
+            val id = handle
+                    .createUpdate(query)
+                    .bind("title", title)
+                    .bind("year", year)
+                    .bind("month", month)
+                    .bind("day", day)
+                    .bind("difficulty", difficulty)
+                    .bind("info", info)
+                    .bind("wikipediaLink", wikipedia)
+                    .bind("imageLink", picture)
+                    .executeAndReturnGeneratedKeys("id")
+                    .mapTo(Int::class.java)
+                    .first()
+
+            Card(
+                    id = id,
+                    title = title,
+                    year = year,
+                    month = month,
+                    day = day,
+                    imageLink = picture,
+                    wikipediaLink = wikipedia,
+                    info = info
+            )
+        }
     }
 
-    val getAll: () -> List<Card> = { db.values.toList() }
+    val getAll: () -> List<Card> = {
+        jdbi.withHandle<List<Card>, Exception> {handle ->
+            val query ="""
+                SELECT id, title, "year", "month", "day", difficulty, info, wikipedia_link, image_link
+                FROM card;
+            """.trimIndent()
+            handle.createQuery(query).map { rs, _ ->
+                Card(
+                    id = rs.getInt("id"),
+                    title = rs.getString("title"),
+                    year = rs.getInt("year"),
+                    month = rs.getInt("month"),
+                    day = rs.getInt("day"),
+                    imageLink = rs.getString("image_link"),
+                    wikipediaLink = rs.getString("wikipedia_link"),
+                    info = rs.getString("info")
+                )
+            }.toList()
+        }
+    }
 }

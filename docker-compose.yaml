@@ -1,0 +1,14 @@
+version: '2.0'
+services:
+  postgres:
+    container_name: postgres-history-puzzle
+    image: postgres
+    environment:
+      POSTGRES_DB: history_puzzle
+      POSTGRES_USER: local-user
+      POSTGRES_PASSWORD: local-password
+      PGDATA: /data/postgres
+    #    volumes:
+    #      - postgres:/data/postgres
+    ports:
+      - 5432:5432
