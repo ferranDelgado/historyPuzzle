@@ -30,3 +30,4 @@ Let's try [Spek](https://www.spekframework.org/) + [Kluent](https://github.com/M
 - [Ratpack Error Handler Example](https://github.com/gregwhitaker/ratpack-errorhandler-example)
 - [Best practices unit testing kotlin](https://phauer.com/2018/best-practices-unit-testing-kotlin/)
 - [Travis + Heroku + Github Deploy](https://medium.com/@felipeluizsoares/automatically-deploy-with-travis-ci-and-heroku-ddba1361647f)
+- [Authentication Best Practices Vue](https://blog.sqreen.com/authentication-best-practices-vue/)
