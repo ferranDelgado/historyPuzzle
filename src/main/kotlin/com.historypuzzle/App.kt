@@ -1,6 +1,7 @@
 package com.historypuzzle
 
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.historypuzzle.common.getLogger
 import com.historypuzzle.handler.CreateCardHandler
 import com.historypuzzle.handler.GetAllCardsHandler
 import com.historypuzzle.infrastructure.CardRepository
@@ -8,8 +9,6 @@ import com.historypuzzle.infrastructure.error.GlobalErrorHandler
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.flywaydb.core.Flyway
-import org.flywaydb.core.api.Location
-import org.flywaydb.core.api.configuration.Configuration
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import ratpack.handling.Context
@@ -22,6 +21,9 @@ import javax.sql.DataSource
 fun main() {
     createServer().start()
 }
+
+class App
+private val log = getLogger<App>()
 
 fun hikariConfig(): HikariDataSource {
     val config = HikariConfig()
@@ -45,15 +47,7 @@ private fun migrate(datasource: DataSource) {
     println("Migration success $success")
 }
 
-
 fun createServer() = serverOf {
-    serverConfig {
-        baseDir(BaseDir.find())
-        onError {
-            println("Hello: ${it.message}")
-        }
-    }
-
     registryConfig {
         jackson {
             registerModule(KotlinModule())
@@ -63,11 +57,21 @@ fun createServer() = serverOf {
         onServerError(GlobalErrorHandler())
     }
 
+    serverConfig {
+        jacksonModules(KotlinModule())
+        yaml("config/config.json")
+        require("/database", DatabaseConfig::class.java)
+        baseDir(BaseDir.find())
+    }
+
+
+
     val hikariDataSource = hikariConfig()
     val jdbi = jdbi(hikariDataSource)
     migrate(hikariDataSource)
 
     val cardRepository = CardRepository(jdbi)
+
 
     readCards("C:\\Users\\ferra\\Downloads\\milestones.csv").forEach {
         cardRepository.saver(it)
