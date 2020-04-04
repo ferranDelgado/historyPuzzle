@@ -16,9 +16,11 @@ fun main() {
 }
 
 class App
+
 private val log = getLogger<App>()
 
 fun createServer() = serverOf {
+
     registryModules(
             DatabaseModule(),
             ServicesModule(),
@@ -28,21 +30,16 @@ fun createServer() = serverOf {
     )
 
     serverConfig {
+        onError { throwable ->
+            log.error("Cannot load optional configuration file", throwable)
+        }
         jacksonModules(KotlinModule())
-        yaml("config/config.json")
+        json("config/config.json")
+        sysProps()
+        env()
         require("/database", DatabaseConfig::class.java)
         baseDir(BaseDir.find())
     }
-
-//    val cardRepository = CardRepository(jdbi)
-
-
-//    readCards("C:\\Users\\ferra\\Downloads\\milestones.csv").forEach {
-//        cardRepository.saver(it)
-//    }
-
-//    val createCardHandler = CreateCardHandler(cardRepository.saver)
-//    val getAllCardsHandler = GetAllCardsHandler(cardRepository.getAll)
 
     handlers {
         files { f ->
@@ -60,7 +57,7 @@ fun createServer() = serverOf {
         path("card") { ctx ->
             ctx.byMethod {
                 it.get(GetAllCardsHandler::class.java)
-                .post(CreateCardHandler::class.java)
+                        .post(CreateCardHandler::class.java)
             }
 
         }
