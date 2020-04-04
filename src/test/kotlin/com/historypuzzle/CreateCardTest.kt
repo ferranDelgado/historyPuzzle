@@ -51,7 +51,7 @@ object CreateCardTest : Spek({
         }
 
         Scenario("Empty title should fail") {
-            When("Correct json is send") {
+            When("Card with empty title") {
                 app.test { httpClient ->
                     val json = """
                     {
@@ -65,6 +65,7 @@ object CreateCardTest : Spek({
                     }
                 """
                     httpClient.postJson("card", json) {
+                        body.text shouldBeEqualTo """{"code":400,"message":"Title cannot be empty"}"""
                         statusCode shouldBeEqualTo 400
                         body.text shouldBeEqualTo """{"code":400,"message":"Title cannot be empty"}"""
                     }

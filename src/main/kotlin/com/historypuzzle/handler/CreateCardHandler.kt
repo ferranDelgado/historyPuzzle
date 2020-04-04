@@ -7,6 +7,7 @@ import ratpack.handling.Context
 import ratpack.handling.Handler
 import ratpack.jackson.Jackson.fromJson
 import ratpack.jackson.Jackson.json
+import javax.inject.Inject
 
 data class CreateCardRequest(
         val title: String,
@@ -19,7 +20,7 @@ data class CreateCardRequest(
         val difficulty: Int = 0
 )
 
-class CreateCardHandler(private val saver: CreateCardRequest.() -> Card) : Handler {
+class CreateCardHandler @Inject constructor(private val saver: CreateCardRequest.() -> Card) : Handler {
 
     override fun handle(ctx: Context) {
         ctx.parse(fromJson(CreateCardRequest::class.java))
