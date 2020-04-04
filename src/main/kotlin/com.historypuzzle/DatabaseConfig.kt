@@ -1,4 +1,8 @@
 package com.historypuzzle
 
-data class DatabaseConfig(val password: String)
-data class Config(val db: DatabaseConfig)
+data class DatabaseConfig(
+        val host: String = "localhost:5432",
+        val db: String = "history_puzzle",
+        val user: String = "local-user",
+        val password: String
+)

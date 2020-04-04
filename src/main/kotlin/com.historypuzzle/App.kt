@@ -4,18 +4,11 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.historypuzzle.common.getLogger
 import com.historypuzzle.handler.CreateCardHandler
 import com.historypuzzle.handler.GetAllCardsHandler
-import com.historypuzzle.infrastructure.CardRepository
-import com.historypuzzle.infrastructure.error.GlobalErrorHandler
-import com.zaxxer.hikari.HikariConfig
-import com.zaxxer.hikari.HikariDataSource
-import org.flywaydb.core.Flyway
-import org.jdbi.v3.core.Jdbi
-import org.jdbi.v3.core.kotlin.KotlinPlugin
+import com.historypuzzle.infrastructure.module.*
 import ratpack.handling.Context
 import ratpack.handling.RequestLogger
 import ratpack.http.MutableHeaders
 import ratpack.server.BaseDir
-import javax.sql.DataSource
 
 
 fun main() {
@@ -25,37 +18,14 @@ fun main() {
 class App
 private val log = getLogger<App>()
 
-fun hikariConfig(): HikariDataSource {
-    val config = HikariConfig()
-    config.jdbcUrl = "jdbc:postgresql://localhost:5432/history_puzzle"
-    config.username = "local-user"
-    config.password = "local-password"
-    config.addDataSourceProperty("dataSourceClassName", "org.postgresql.ds.PGSimpleDataSource")
-    config.addDataSourceProperty("autoCommit", "false")
-    config.addDataSourceProperty("useServerPrepStmts", "true")
-    config.addDataSourceProperty("cachePrepStmts", "true")
-    return HikariDataSource(config)
-}
-
-private fun jdbi(datasource: DataSource = hikariConfig()): Jdbi {
-    return Jdbi.create(datasource).installPlugin(KotlinPlugin())
-}
-
-private fun migrate(datasource: DataSource) {
-    val flyway = Flyway.configure().dataSource(datasource).load()
-    val success = flyway.migrate()
-    println("Migration success $success")
-}
-
 fun createServer() = serverOf {
-    registryConfig {
-        jackson {
-            registerModule(KotlinModule())
-        }
-
-        onClientError(GlobalErrorHandler())
-        onServerError(GlobalErrorHandler())
-    }
+    registryModules(
+            DatabaseModule(),
+            ServicesModule(),
+            HandlerModule(),
+            ErrorModule(),
+            JacksonModule()
+    )
 
     serverConfig {
         jacksonModules(KotlinModule())
@@ -64,21 +34,15 @@ fun createServer() = serverOf {
         baseDir(BaseDir.find())
     }
 
+//    val cardRepository = CardRepository(jdbi)
 
 
-    val hikariDataSource = hikariConfig()
-    val jdbi = jdbi(hikariDataSource)
-    migrate(hikariDataSource)
+//    readCards("C:\\Users\\ferra\\Downloads\\milestones.csv").forEach {
+//        cardRepository.saver(it)
+//    }
 
-    val cardRepository = CardRepository(jdbi)
-
-
-    readCards("C:\\Users\\ferra\\Downloads\\milestones.csv").forEach {
-        cardRepository.saver(it)
-    }
-
-    val createCardHandler = CreateCardHandler(cardRepository.saver)
-    val getAllCardsHandler = GetAllCardsHandler(cardRepository.getAll)
+//    val createCardHandler = CreateCardHandler(cardRepository.saver)
+//    val getAllCardsHandler = GetAllCardsHandler(cardRepository.getAll)
 
     handlers {
         files { f ->
@@ -95,8 +59,8 @@ fun createServer() = serverOf {
         all(RequestLogger.ncsa())
         path("card") { ctx ->
             ctx.byMethod {
-                it.get(getAllCardsHandler)
-                .post(createCardHandler)
+                it.get(GetAllCardsHandler::class.java)
+                .post(CreateCardHandler::class.java)
             }
 
         }

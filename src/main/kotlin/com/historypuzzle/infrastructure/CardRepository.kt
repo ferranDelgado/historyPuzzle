@@ -3,8 +3,9 @@ package com.historypuzzle.infrastructure
 import com.historypuzzle.domain.Card
 import com.historypuzzle.handler.CreateCardRequest
 import org.jdbi.v3.core.Jdbi
+import javax.inject.Inject
 
-class CardRepository(private val jdbi: Jdbi) {
+class CardRepository @Inject constructor(private val jdbi: Jdbi) {
     val saver: CreateCardRequest.() -> Card = {
         jdbi.withHandle<Card, Exception> { handle ->
             val query = """

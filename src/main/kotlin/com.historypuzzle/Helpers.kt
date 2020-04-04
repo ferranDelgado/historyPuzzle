@@ -6,9 +6,12 @@ package com.historypuzzle
  */
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.google.inject.AbstractModule
 import ratpack.error.ClientErrorHandler
 import ratpack.error.ServerErrorHandler
 import ratpack.error.internal.ErrorHandler
+import ratpack.guice.Guice
 import ratpack.handling.Chain
 import ratpack.handling.Context
 import ratpack.registry.RegistrySpec
@@ -22,10 +25,10 @@ fun serverStart(cb: KServerSpec.() -> Unit) = RatpackServer.start { KServerSpec(
 
 class KChain(val delegate: Chain) : Chain by delegate {
     fun fileSystem(path: String = "", cb: KChain.() -> Unit) =
-        delegate.fileSystem(path) { KChain(it).cb() }
+            delegate.fileSystem(path) { KChain(it).cb() }
 
     fun prefix(path: String = "", cb: KChain.() -> Unit) =
-        delegate.prefix(path) { KChain(it).cb() }
+            delegate.prefix(path) { KChain(it).cb() }
 
     fun all(cb: Context.() -> Unit) = delegate.all { it.cb() }
     fun path(path: String = "", cb: Context.() -> Unit) = delegate.path(path) { it.cb() }
@@ -59,7 +62,17 @@ class KRegistrySpec(private val delegate: RegistrySpec) {
     }
 }
 
-class KServerSpec(val delegate: RatpackServerSpec) {
+class KServerSpec(private val delegate: RatpackServerSpec) {
+
+    fun registryModules(vararg modules: AbstractModule) {
+        delegate.registry(Guice
+                .registry { bindings ->
+                    modules.forEach {
+                        bindings.module(it)
+                    }
+                }
+        )
+    }
 
     fun registryConfig(cb: KRegistrySpec.() -> Unit) = delegate.registryOf { registry ->
         KRegistrySpec(registry).cb()
