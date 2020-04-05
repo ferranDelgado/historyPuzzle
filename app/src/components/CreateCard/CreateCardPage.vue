@@ -182,7 +182,7 @@
             '$route': 'fetchData'
         },
         created() {
-            this.$store.dispatch('loadUsers');
+            this.$store.dispatch('loadAllCards');
         },
         methods: {
             fetchData() {
@@ -193,7 +193,6 @@
                 console.log("Creating card " + this.selectedCard)
             },
             setCardDate(year, month, day) {
-                console.log(`year: ${year}, month: ${month}, day: ${day}`);
                 this.selectedCard.year = year;
                 this.selectedCard.month = month;
                 this.selectedCard.day = day;
