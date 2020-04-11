@@ -9,5 +9,12 @@ src/ratpack/favicon.ico
 **/*.iml
 .idea/modules.xml
 .idea/libraries/*.xml
+.idea/artifacts
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/*.iml
+.idea/modules
 .idea
 *.iws
+ *.iml
+ *.ipr

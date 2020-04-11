@@ -19,20 +19,36 @@ object CreateCardTest : Spek({
 
     beforeGroup {
         /**
-         * This should set up a specific db for integration test
+         * TODO: This should set up a specific db for integration test
          */
         val db = "history_puzzle"
-        val user = "local-user"
-        val password = "local-password"
+        val user = "local_user"
+        val password = "local_password"
         val url = "jdbc:postgresql://localhost:5432/$db"
         System.setProperty("ratpack.database.db", db)
-        System.setProperty("ratpack.database.user", "local-user")
-        System.setProperty("ratpack.database.password", "local-password")
+        System.setProperty("ratpack.database.user", "local_user")
+        System.setProperty("ratpack.database.password", "local_password")
 
         val jdbi = Jdbi.create(url, user, password)
 
-        jdbi.useHandle<Exception> {
-            it.createUpdate("DELETE FROM card").execute()
+        try {
+
+            jdbi.useHandle<Exception> { handle ->
+                val tables = handle
+                        .select("""
+                    select table_name
+                    from information_schema.tables 
+                    where table_schema = 'public' and table_name not like 'pg_%' and table_name not like 'flyway_%'
+                """)
+                        .mapTo(String::class.java)
+                        .toList()
+                tables.map { tableName ->
+                    val deleted = handle.createUpdate("DELETE FROM $tableName").execute()
+                    tableName to deleted
+                }.toMap()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
         app = EmbeddedApp.fromServer(createServer())
     }
@@ -62,11 +78,11 @@ object CreateCardTest : Spek({
                         jsonMap.keys.size shouldBeEqualTo 8
                         jsonMap["title"] shouldBeEqualTo "World War I"
                         jsonMap["year"] shouldBeEqualTo 1914
-                        jsonMap["month"] shouldBeEqualTo  7
-                        jsonMap["day"] shouldBeEqualTo  28
-                        jsonMap["imageLink"] shouldBeEqualTo  ""
-                        jsonMap["info"] shouldBeEqualTo  ""
-                        jsonMap["wikipediaLink"] shouldBeEqualTo  "https://en.wikipedia.org/wiki/World_War_I"
+                        jsonMap["month"] shouldBeEqualTo 7
+                        jsonMap["day"] shouldBeEqualTo 28
+                        jsonMap["imageLink"] shouldBeEqualTo ""
+                        jsonMap["info"] shouldBeEqualTo ""
+                        jsonMap["wikipediaLink"] shouldBeEqualTo "https://en.wikipedia.org/wiki/World_War_I"
                     }
                 }
             }
@@ -80,11 +96,11 @@ object CreateCardTest : Spek({
                         jsonMap.keys.size shouldBeEqualTo 8
                         jsonMap["title"] shouldBeEqualTo "World War I"
                         jsonMap["year"] shouldBeEqualTo 1914
-                        jsonMap["month"] shouldBeEqualTo  7
-                        jsonMap["day"] shouldBeEqualTo  28
-                        jsonMap["imageLink"] shouldBeEqualTo  ""
-                        jsonMap["info"] shouldBeEqualTo  ""
-                        jsonMap["wikipediaLink"] shouldBeEqualTo  "https://en.wikipedia.org/wiki/World_War_I"
+                        jsonMap["month"] shouldBeEqualTo 7
+                        jsonMap["day"] shouldBeEqualTo 28
+                        jsonMap["imageLink"] shouldBeEqualTo ""
+                        jsonMap["info"] shouldBeEqualTo ""
+                        jsonMap["wikipediaLink"] shouldBeEqualTo "https://en.wikipedia.org/wiki/World_War_I"
                     }
                 }
             }

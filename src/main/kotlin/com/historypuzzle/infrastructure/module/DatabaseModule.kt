@@ -2,6 +2,7 @@ package com.historypuzzle.infrastructure.module
 
 import com.google.inject.AbstractModule
 import com.google.inject.Provides
+import com.google.inject.Singleton
 import com.historypuzzle.DatabaseConfig
 import com.historypuzzle.common.getLogger
 import com.zaxxer.hikari.HikariConfig
@@ -18,10 +19,9 @@ class DatabaseModule : AbstractModule() {
 
     }
 
+    @Singleton
     @Provides
     fun dataSource(databaseConfig: DatabaseConfig): HikariDataSource {
-        log.info("Creating datasource with config:")
-        log.info(databaseConfig.toString())
         val config = HikariConfig()
         config.jdbcUrl = "jdbc:postgresql://${databaseConfig.host}/${databaseConfig.db}"
         config.username = databaseConfig.user
@@ -33,6 +33,7 @@ class DatabaseModule : AbstractModule() {
         return HikariDataSource(config)
     }
 
+    @Singleton
     @Provides
     fun jdbi(dataSource: HikariDataSource): Jdbi {
         return Jdbi.create(dataSource).installPlugin(KotlinPlugin())

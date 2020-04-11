@@ -5,8 +5,8 @@ services:
     image: postgres
     environment:
       POSTGRES_DB: history_puzzle
-      POSTGRES_USER: local-user
-      POSTGRES_PASSWORD: local-password
+      POSTGRES_USER: local_user
+      POSTGRES_PASSWORD: local_password
       PGDATA: /data/postgres
     #    volumes:
     #      - postgres:/data/postgres
