@@ -1,6 +1,7 @@
 package com.historypuzzle
 
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.historypuzzle.common.HerokuUrlDbToProperties
 import com.historypuzzle.common.getLogger
 import com.historypuzzle.handler.CreateCardHandler
 import com.historypuzzle.handler.GetAllCardsHandler
@@ -29,10 +30,12 @@ fun createServer() = serverOf {
             JacksonModule()
     )
 
+    val dbProperties = HerokuUrlDbToProperties.extractDbProperties(System.getenv("DATABASE_URL"))
     serverConfig {
         onError { throwable ->
             log.error("Cannot load optional configuration file", throwable)
         }
+        args(dbProperties.toTypedArray())
         jacksonModules(KotlinModule())
         json("config/config.json")
         sysProps()

@@ -1,5 +1,5 @@
 {
   "database": {
-    "password": "local-password"
+    "password": "local_password"
   }
 }

@@ -8,7 +8,7 @@ import ratpack.handling.Handler
 import ratpack.jackson.Jackson
 import javax.inject.Inject
 
-class GetAllCardsHandler @Inject constructor(private val getAllCards: () -> List<Card>) : Handler {
+class GetAllCardsHandler constructor(private val getAllCards: () -> List<Card>) : Handler {
 
     override fun handle(ctx: Context) {
         Blocking.get {
