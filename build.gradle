@@ -44,7 +44,7 @@ repositories {
 }
 
 wrapper {
-    gradleVersion = '6.2.2'
+    gradleVersion = '6.3'
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
