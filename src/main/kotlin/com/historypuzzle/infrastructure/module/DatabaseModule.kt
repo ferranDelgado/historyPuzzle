@@ -9,7 +9,6 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
-import javax.sql.DataSource
 
 class DatabaseModule : AbstractModule() {
     private companion object {

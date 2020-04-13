@@ -35,9 +35,9 @@ fun createServer() = serverOf {
         onError { throwable ->
             log.error("Cannot load optional configuration file", throwable)
         }
-        args(dbProperties.toTypedArray())
         jacksonModules(KotlinModule())
         json("config/config.json")
+        args(dbProperties.toTypedArray())
         sysProps()
         env()
         require("/database", DatabaseConfig::class.java)
