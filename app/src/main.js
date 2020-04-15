@@ -56,7 +56,7 @@ Vue.use(Buefy, {
 
 Vue.use(VueAxios, axios);
 
-Vue.axios.defaults.baseURL = "http://localhost:5050/";
+Vue.axios.defaults.baseURL = process.env.NODE_ENV === "production" ? "/" : "http://localhost:5050/";
 
 new Vue({
     router,
