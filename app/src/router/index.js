@@ -8,7 +8,7 @@ export default new Router({
         {
             path: '/play/',
             name: 'Game',
-            component: require('@/components/Board/BoardMyDraggable').default
+            component: require('@/components/Board/TimeLineBoard').default
         },
         // {
         //     path: '/create/',

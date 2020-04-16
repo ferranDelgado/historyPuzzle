@@ -108,46 +108,46 @@ const actions = {
         }).catch(error => {
             throw new Error(`API ${error}`);
         });
-    },
-    moveCard({commit}, movement) {
-        function isPositionCorrect(card, index) {
-            let cardInBoardYear;
-            if(index >= state.game.cardsInBoard.length) {
-                cardInBoardYear = state.game.cardsInBoard[state.game.cardsInBoard.length - 1].year;
-                console.log(`Last Card: ${cardInBoardYear} <= ${card.year}; ${ cardInBoardYear <= card.year}`);
-                return cardInBoardYear <= card.year;
-            } else {
-                cardInBoardYear = state.game.cardsInBoard[index].year;
-                console.log(`Any card: ${cardInBoardYear} >= ${card.year}; ${ cardInBoardYear >= card.year}`);
-                return cardInBoardYear >= card.year;
-            }
-
-
-        }
-        const cardInHandIndex = state.game.cardsInHand.findIndex(function(value) {
-            return value.id === movement.cardId
-        });
-
-        const cardInHand = state.game.cardsInHand[cardInHandIndex];
-
-        const addCard = {
-          card: {
-              id: cardInHand.id,
-              title: cardInHand.title,
-              year: cardInHand.year
-          },
-          index: movement.index
-        };
-
-        if(isPositionCorrect(cardInHand, movement.index)) {
-            console.log(`Correct position ${JSON.stringify(movement)}`);
-            commit('ADD_CARD_TO_CARDS_IN_BOARD', addCard);
-        } else {
-            console.log(`Incorrect position ${JSON.stringify(movement)}`);
-            commit('ADD_CARD_TO_DISCARDED_CARDS', addCard);
-        }
-        commit('DELETE_CARD_TO_CARDS_IN_HAND', cardInHandIndex);
     }
+    // moveCard({commit}, movement) {
+    //     function isPositionCorrect(card, index) {
+    //         let cardInBoardYear;
+    //         if(index >= state.game.cardsInBoard.length) {
+    //             cardInBoardYear = state.game.cardsInBoard[state.game.cardsInBoard.length - 1].year;
+    //             console.log(`Last Card: ${cardInBoardYear} <= ${card.year}; ${ cardInBoardYear <= card.year}`);
+    //             return cardInBoardYear <= card.year;
+    //         } else {
+    //             cardInBoardYear = state.game.cardsInBoard[index].year;
+    //             console.log(`Any card: ${cardInBoardYear} >= ${card.year}; ${ cardInBoardYear >= card.year}`);
+    //             return cardInBoardYear >= card.year;
+    //         }
+    //
+    //
+    //     }
+    //     const cardInHandIndex = state.game.cardsInHand.findIndex(function(value) {
+    //         return value.id === movement.cardId
+    //     });
+    //
+    //     const cardInHand = state.game.cardsInHand[cardInHandIndex];
+    //
+    //     const addCard = {
+    //       card: {
+    //           id: cardInHand.id,
+    //           title: cardInHand.title,
+    //           year: cardInHand.year
+    //       },
+    //       index: movement.index
+    //     };
+    //
+    //     if(isPositionCorrect(cardInHand, movement.index)) {
+    //         console.log(`Correct position ${JSON.stringify(movement)}`);
+    //         commit('ADD_CARD_TO_CARDS_IN_BOARD', addCard);
+    //     } else {
+    //         console.log(`Incorrect position ${JSON.stringify(movement)}`);
+    //         commit('ADD_CARD_TO_DISCARDED_CARDS', addCard);
+    //     }
+    //     commit('DELETE_CARD_TO_CARDS_IN_HAND', cardInHandIndex);
+    // }
 };
 
 function getRandomArbitrary(min, max) {
