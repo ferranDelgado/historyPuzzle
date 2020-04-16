@@ -49,6 +49,7 @@
                     draggable="true"
                     @dragstart="dragStart(card)"
                     @dragend="dragEnd(index)"
+                    @dragleave="dragEnd(index)"
                 >
                     <Card
                             :title="card.title"
