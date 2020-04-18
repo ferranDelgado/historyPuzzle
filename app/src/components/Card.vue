@@ -13,8 +13,7 @@
                     </figure>
                 </div>
                 <div class="media-content">
-                    <p class="title is-4">{{ title }}</p>
-                    <p class="subtitle is-6">
+                    <p class="title is-4">{{ title }}</p><p class="subtitle is-6">
                         <span v-if="year" class="tag is-dark">{{computedDay}} {{ computedMonth }} {{ computedYear }}</span>
                     </p>
                 </div>
