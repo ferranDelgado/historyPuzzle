@@ -6,7 +6,12 @@ Vue.use(Router);
 export default new Router({
     routes: [
         {
-            path: '/play/',
+            path: '/play/V1',
+            name: 'Game',
+            component: require('@/components/Board/BoardMyDraggable.vue').default
+        },
+        {
+            path: '/play/V2',
             name: 'Game',
             component: require('@/components/Board/TimeLineBoard').default
         },
@@ -22,7 +27,7 @@ export default new Router({
         // },
         {
             path: '*',
-            redirect: '/play'
+            redirect: '/play/V2'
         }
     ]
 })
