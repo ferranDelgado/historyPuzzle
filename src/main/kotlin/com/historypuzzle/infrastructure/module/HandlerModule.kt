@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule
 import com.google.inject.Provides
 import com.google.inject.Singleton
 import com.historypuzzle.handler.CreateCardHandler
+import com.historypuzzle.handler.GameDataHandler
 import com.historypuzzle.handler.GetAllCardsHandler
 import com.historypuzzle.infrastructure.CardRepository
 
@@ -21,5 +22,11 @@ class HandlerModule: AbstractModule() {
     @Provides
     fun createCardHandler(repository: CardRepository): CreateCardHandler {
         return CreateCardHandler(repository.saver)
+    }
+
+    @Singleton
+    @Provides
+    fun createGameDataHandler(): GameDataHandler {
+        return GameDataHandler()
     }
 }

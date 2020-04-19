@@ -15,6 +15,11 @@ export default new Router({
             name: 'Game',
             component: require('@/components/Board/TimeLineBoard').default
         },
+        {
+            path: '/talk',
+            name: 'Game',
+            component: require('@/components/Talk').default
+        },
         // {
         //     path: '/create/',
         //     name: 'Create card',

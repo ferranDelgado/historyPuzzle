@@ -4,6 +4,7 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.historypuzzle.common.HerokuUrlDbToProperties
 import com.historypuzzle.common.getLogger
 import com.historypuzzle.handler.CreateCardHandler
+import com.historypuzzle.handler.GameDataHandler
 import com.historypuzzle.handler.GetAllCardsHandler
 import com.historypuzzle.infrastructure.module.*
 import ratpack.handling.Context
@@ -62,8 +63,9 @@ fun createServer() = serverOf {
                 it.get(GetAllCardsHandler::class.java)
                         .post(CreateCardHandler::class.java)
             }
-
         }
+
+        get("data", GameDataHandler::class.java)
 
         get("hola") { render("hola") }
         path("foo") { render("from the foo handler") }
