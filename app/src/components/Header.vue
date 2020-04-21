@@ -21,6 +21,7 @@
                 <router-link class="navbar-item" to="/play/V1">Play v1</router-link>
                 <router-link class="navbar-item" to="/play/V2">Play v2</router-link>
                 <router-link class="navbar-item" to="/talk">Talk</router-link>
+                <router-link class="navbar-item" to="/room">Room</router-link>
 <!--                <div class="navbar-item has-dropdown is-hoverable">-->
 <!--                    <a class="navbar-link">-->
 <!--                        More-->

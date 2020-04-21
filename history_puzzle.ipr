@@ -566,6 +566,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ratpack/ratpack-guice/1.7.6/9ca18d51627229d3cbdc435de7e2ddf4a71ae65c/ratpack-guice-1.7.6-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Gradle: io.ratpack:ratpack-rx:1.7.6">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ratpack/ratpack-rx/1.7.6/b16aa79b94cdb2acdea2dd9cb7937109c2e30797/ratpack-rx-1.7.6.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ratpack/ratpack-rx/1.7.6/408177dafea0211399a93aa26afd408af8672da7/ratpack-rx-1.7.6-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Gradle: io.ratpack:ratpack-test:1.7.6">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ratpack/ratpack-test/1.7.6/cf16da3cd0d54ec7f583b218e1fd455bcd0515aa/ratpack-test-1.7.6.jar!/" />
@@ -573,6 +582,24 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.ratpack/ratpack-test/1.7.6/b67a1dc20c63419f2cf12da04ee781cdee8c8691/ratpack-test-1.7.6-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.reactivex:rxjava-reactive-streams:1.0.1">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava-reactive-streams/1.0.1/87d6f207aee10615e108f7121a873f787ab92408/rxjava-reactive-streams-1.0.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava-reactive-streams/1.0.1/a8c6d89a45088b822f5ea85b986210c2cbcc7252/rxjava-reactive-streams-1.0.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: io.reactivex:rxjava:1.1.2">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.2/df90a91dbb9a7d942361a5613b1666e38dca4844/rxjava-1.1.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex/rxjava/1.1.2/c9cf013155831cfb93f93d981a1ab04a2d5d2d97/rxjava-1.1.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: javax.activation:activation:1.1">
