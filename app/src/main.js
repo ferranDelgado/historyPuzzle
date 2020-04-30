@@ -5,6 +5,8 @@ import store from './store'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import {library} from '@fortawesome/fontawesome-svg-core'
+import webSocketService from './services/webSocketService'
+
 import {
     faAngleDown,
     faAngleLeft,
@@ -57,6 +59,8 @@ Vue.use(Buefy, {
 Vue.use(VueAxios, axios);
 
 Vue.axios.defaults.baseURL = process.env.NODE_ENV === "production" ? "/" : "http://localhost:5050/";
+
+Vue.use(webSocketService, {url: "http://localhost:5050/data", store: store});
 
 new Vue({
     router,

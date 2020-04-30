@@ -2,6 +2,7 @@ package com.historypuzzle.infrastructure.error
 
 import AppException
 import PreconditionException
+import com.historypuzzle.common.getLogger
 import ratpack.error.internal.ErrorHandler
 import ratpack.handling.Context
 import ratpack.jackson.Jackson.json
@@ -9,8 +10,11 @@ import ratpack.jackson.Jackson.json
 private data class ErrorResponse(val code: Int, val message: String)
 
 class GlobalErrorHandler : ErrorHandler {
+    companion object {
+        val log = getLogger<GlobalErrorHandler>()
+    }
     override fun error(context: Context?, statusCode: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        log.error("Error: $statusCode")
     }
 
     override fun error(context: Context, throwable: Throwable) {
